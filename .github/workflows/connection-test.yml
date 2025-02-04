@@ -5,7 +5,9 @@ on: [push, pull_request]
 jobs:
   test-connection:
     runs-on: ubuntu-latest
-    container: quay.io/eggplantsoftware/fusion-engine-ubi8:23.5.102
+    container: 
+      image: quay.io/eggplantsoftware/fusion-engine-ubi8:23.5.102
+      options: --user root
     environment: default
     steps:
       - name: Checkout repository
