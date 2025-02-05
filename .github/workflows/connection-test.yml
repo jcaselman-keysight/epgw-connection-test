@@ -22,6 +22,7 @@ jobs:
           EPF_LICENSE_KEY: ${{ secrets.EPF_LICENSE_KEY }}
         run: |
               echo $HOME
+              export $HOME=/root
               ls -alh $HOME
               mkdir -p $HOME
               defaults write Eggplant AcceptEULA YES
