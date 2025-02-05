@@ -21,6 +21,7 @@ jobs:
           RDPDOMAIN: ${{ vars.RDPDOMAIN }}
           EPF_LICENSE_KEY: ${{ secrets.EPF_LICENSE_KEY }}
         run: |
+              echo $HOME
               defaults write Eggplant AcceptEULA YES
               defaults write Eggplant AcceptPrivacyAgreement YES
               defaults write Eggplant GSBackend libgnustep-headless
