@@ -21,7 +21,11 @@ jobs:
           RDPDOMAIN: ${{ vars.RDPDOMAIN }}
           EPF_LICENSE_KEY: ${{ secrets.EPF_LICENSE_KEY }}
         run: |
-              runscript -LicenseKey $EPF_LICENSE_KEY
+              defaults write Eggplant AcceptEULA YES
+              defaults write Eggplant AcceptPrivacyAgreement YES
+              defaults write Eggplant GSBackend libgnustep-headless
+              defaults write Eggplant BonjourDiscoveryEnabled false
+              runscript -LicenseKey "$EPF_LICENSE_KEY"
       - name: Upload Connection Test Screenshot Artifact
         uses: actions/upload-artifact@v4
         with:
