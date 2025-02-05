@@ -27,7 +27,7 @@ jobs:
               defaults write Eggplant BonjourDiscoveryEnabled false
               runscript -LicenseKey "$EPF_LICENSE_KEY"
               mkdir -p ConnectionTest.suite/Scripts
-              echo "CaptureScreen Name: "${pwd}/ConnectionTestScreenshot.png" > ConnectionTest.suite/Scripts/ConnectionTest.script
+              echo "CaptureScreen Name: \"$(pwd)/ConnectionTestScreenshot.png\"" > ConnectionTest.suite/Scripts/ConnectionTest.script
               runscript -type RDP -host $RDPHOSTNAME -port $RDPPORT -username $RDPUSERNAME -password $RDPPASSWORD ConnectionTest.suite/Scripts/ConnectionTest.script
       - name: Upload Connection Test Screenshot Artifact
         uses: actions/upload-artifact@v4
