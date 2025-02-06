@@ -35,11 +35,19 @@ jobs:
           RDPPASSWORD: ${{ secrets.RDPPASSWORD }}
           EPF_LICENSE_KEY: ${{ secrets.EPF_LICENSE_KEY }}
         run: |
-              export HOME=/root # epgw does not like default github $HOME
-              cp -rv /home/eggplant/GNUstep $HOME/
+              # epgw does not like default github $HOME
+              export HOME=/root
+              # accept eula/privacy agreement and set up for headless execution
+              defaults write Eggplant AcceptEULA YES
+              defaults write Eggplant AcceptPrivacyAgreement YES
+              defaults write Eggplant GSBackend libgnustep-headless
+              defaults write Eggplant BonjourDiscoveryEnabled false
+              # license EPF
               runscript -LicenseKey "$EPF_LICENSE_KEY"
+              # create a script in a suite that will capture the screen of the connected SUT
               mkdir -p ConnectionTest.suite/Scripts
               echo "CaptureScreen Name: \"$(pwd)/ConnectionTestScreenshot.png\"" > ConnectionTest.suite/Scripts/ConnectionTest.script
+              # run the script
               runscript -type RDP -host $RDPHOSTNAME -port $RDPPORT -username $RDPUSERNAME -password $RDPPASSWORD ConnectionTest.suite/Scripts/ConnectionTest.script
       - name: Upload Connection Test Screenshot Artifact
         uses: actions/upload-artifact@v4
